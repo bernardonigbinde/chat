@@ -1,12 +1,14 @@
 <template>
     <div class="chat-app">
-        test
-        <conversation :contact="props.selectedContact" :messages="props.messages" />
-        <contacts-list :contacts="props.contacts" />
+        <Conversation :contact="props.selectedContact" :messages="props.messages" />
+        <ContactsList :contacts="props.contacts" />
     </div>
 </template>
 
 <script setup>
+import Conversation from "@/Pages/Conversation.vue";
+import ContactsList from "@/Pages/ContactsList.vue";
+
 let props = defineProps({
     messages: Array,
     contacts: Array,
