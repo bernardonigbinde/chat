@@ -10,6 +10,7 @@
 let props = defineProps({
     messages: Array,
     contacts: Array,
-    selectedContact: Object
+    selectedContact: Object,
+    user: Object,
 })
 </script>
