@@ -10,11 +10,6 @@ export default defineConfig({
         }),
         vue({
             template: {
-                compilerOptions: {
-                    isCustomElement: (tag) => {
-                        return tag.startsWith('con')
-                    }
-                },
                 transformAssetUrls: {
                     base: null,
                     includeAbsolute: false,
