@@ -1,5 +1,5 @@
 <template>
-    <div class="overflow-y-scroll">
+    <div class="overflow-y-scroll rounded-r-lg bg-white">
         <ul class="divide-y">
             <li class="justify-self-start py-2 pl-2 hover:bg-gray-200 cursor-default" v-for="(contact, index) in props.contacts" :key="contact.uuid" @click="selectContact(index, contact)" :class="{ 'bg-gray-300': index === selected }">
                 <div class="avatar grid grid-cols-12 items-center">
@@ -28,5 +28,5 @@ let selectContact = (index, contact) => {
     emits('selectedContact', contact);
 }
 
-let selected = ref(0);
+let selected = ref(null);
 </script>

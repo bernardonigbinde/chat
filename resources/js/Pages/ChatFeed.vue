@@ -1,5 +1,5 @@
 <template>
-    <div class="feed">
+    <div class="bg-red-600 h-full">
         <ul v-if="props.contact">
             <li v-for="message in props.messages" :class="`message_${message.to === props.contact.uuid ? 'sent' : 'received'}`" :key="message.uuid"></li>
         </ul>

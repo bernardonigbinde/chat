@@ -1,6 +1,6 @@
 <template>
-    <div class="composer">
-        <textarea v-model="form.message" @keydown.enter="send" placeholder="Enter Message..."></textarea>
+    <div class="justify-end flex flex-col rounded-b-lg">
+        <textarea class="border-none resize-none ring-0 focus:ring-0 rounded-bl-lg w-full" autofocus v-model="form.message" @keydown.enter.prevent="send" placeholder="Enter Message..."></textarea>
     </div>
 </template>
 
@@ -13,7 +13,7 @@ let form = useForm({
     message: '',
 })
 
-let send = () => {
+let send = (event) => {
     if (form.message === '') {
         return;
     }

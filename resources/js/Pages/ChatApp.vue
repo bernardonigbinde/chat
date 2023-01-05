@@ -1,7 +1,6 @@
 <template>
-    <div class="p-0 max-h-[40rem]">
-        <h1 class="font-semibold p-4 text-xl bg-gray-200" v-text="form.selectedContact ? form.selectedContact.name : 'Select a Contact'"/>
-        <div class="flex flex-row grid grid-cols-12">
+    <div class="p-0 flex flex-col rounded-lg">
+        <div class="grid grid-cols-12 bg-opacity-60 max-h-full rounded-b-lg">
             <Conversation class="col-span-9" :contact="form.selectedContact" :messages="form.messages"/>
             <ContactsList class="col-span-3 border-l border-l-1 border-l-gray-300" :contacts="form.contacts" @selectedContact="startConversation"/>
         </div>
