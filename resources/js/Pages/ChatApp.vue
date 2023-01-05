@@ -1,7 +1,10 @@
 <template>
-    <div class="chat-app">
-        <Conversation :contact="form.selectedContact" :messages="form.messages"/>
-        <ContactsList :contacts="form.contacts" @selectedContact="startConversation"/>
+    <div class="p-0 max-h-[40rem]">
+        <h1 class="font-semibold p-4 text-xl bg-gray-200" v-text="form.selectedContact ? form.selectedContact.name : 'Select a Contact'"/>
+        <div class="flex flex-row grid grid-cols-12">
+            <Conversation class="col-span-9" :contact="form.selectedContact" :messages="form.messages"/>
+            <ContactsList class="col-span-3 border-l border-l-1 border-l-gray-300" :contacts="form.contacts" @selectedContact="startConversation"/>
+        </div>
     </div>
 </template>
 
@@ -25,14 +28,6 @@ let form = useForm({
 })
 
 let startConversation = (contact) => {
-    // Inertia.visit(route('single.conversation', contact), {}, {
-    //     method: 'get',
-    //     onSuccess(response) {
-    //     },
-    //     onError(error) {
-    //     },
-    // })
-
     axios.get(route('single.conversation', contact))
         .then(response => {
             form.messages = response.data;
