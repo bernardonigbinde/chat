@@ -20,10 +20,10 @@ let form = useForm({
 })
 
 let send = (event) => {
-    if (event.shiftKey === true) {
+    if (event.shiftKey === true && form.message.trim().length > 0) {
         form.message += '\n';
-    } else if (form.message !== '') {
-        emits('send', form.message);
+    } else if (form.message.trim() !== '') {
+        emits('send', form.message.trim());
         form.message = null;
     }
 }
