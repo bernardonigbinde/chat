@@ -17,6 +17,6 @@ class ConversationController extends Controller {
         })->orWhere(function (Builder $builder) use ($user) {
             return $builder->where('from', Auth::id())
                 ->where('to', $user->uuid);
-        })->limit(100));
+        })->limit(100)->get());
     }
 }

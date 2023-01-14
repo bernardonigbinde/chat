@@ -44,7 +44,7 @@ let sendMessage = (text) => {
     axios.post(route('message.send', form.selectedContact), {
         text: encodeURIComponent(text)
     }).then(response => {
-        form.messages = response.data;
+        form.messages.push(response.data);
     })
 }
 </script>

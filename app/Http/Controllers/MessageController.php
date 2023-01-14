@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMessageRequest;
+use App\Http\Resources\MessageResource;
 use App\Models\Message;
 use App\Models\User;
 use Auth;
 
 class MessageController extends Controller {
     public function store(StoreMessageRequest $request, User $user) {
-        Message::create([
+        $message = Message::create([
             'from' => Auth::id(),
             'to' => $user->uuid,
             'text' =>
@@ -19,6 +20,7 @@ class MessageController extends Controller {
                 , ENT_QUOTES, 'UTF-8')
                 ),
         ]);
-        return redirect()->route('single.conversation', $user);
+        MessageResource::withoutWrapping();
+        return MessageResource::make($message);
     }
 }
