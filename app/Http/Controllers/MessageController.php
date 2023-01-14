@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageSent;
 use App\Http\Requests\StoreMessageRequest;
 use App\Http\Resources\MessageResource;
 use App\Models\Message;
@@ -24,6 +25,7 @@ class MessageController extends Controller {
                             , ENT_QUOTES, 'UTF-8')
                     ),
             ]);
+            broadcast(new MessageSent($message));
             MessageResource::withoutWrapping();
             return MessageResource::make($message);
         }

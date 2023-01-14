@@ -12,6 +12,7 @@ import Conversation from "@/Pages/Conversation.vue";
 import ContactsList from "@/Pages/ContactsList.vue";
 import {useForm} from "@inertiajs/inertia-vue3";
 import axios from "axios";
+import {onMounted} from "vue";
 
 let props = defineProps({
     messages: Array,
@@ -24,6 +25,13 @@ let form = useForm({
     contacts: props.contacts,
     messages: props.messages,
     selectedContact: props.selectedContact,
+})
+
+onMounted(() => {
+    Echo.private(`messages.${props.user.uuid}`)
+        .listen('MessageSent', (event) => {
+            handleIncomingMessage(event.message);
+        })
 })
 
 let startConversation = (contact) => {
@@ -45,7 +53,14 @@ let sendMessage = (text) => {
     axios.post(route('message.send', form.selectedContact), {
         text: encodeURIComponent(text)
     }).then(response => {
-        form.messages.push(response.data);
+        form.messages.push(response.data)
+        handleIncomingMessage(response.data)
     })
+}
+
+let handleIncomingMessage = (message) => {
+    if (form.selectedContact && message.from === form.selectedContact.uuid) {
+        form.messages.push(message);
+    }
 }
 </script>
