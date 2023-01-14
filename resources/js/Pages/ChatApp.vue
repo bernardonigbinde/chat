@@ -1,7 +1,7 @@
 <template>
     <div class="p-0 flex flex-col rounded-lg">
         <div class="grid grid-cols-12 bg-opacity-60 max-h-full rounded-b-lg">
-            <Conversation class="col-span-9" :contact="form.selectedContact" :messages="form.messages"/>
+            <Conversation class="col-span-9" :contact="form.selectedContact" :messages="form.messages" @send="sendMessage"/>
             <ContactsList class="col-span-3 border-l border-l-1 border-l-gray-300" :contacts="form.contacts" @selectedContact="startConversation"/>
         </div>
     </div>
@@ -27,16 +27,24 @@ let form = useForm({
 })
 
 let startConversation = (contact) => {
-    axios.get(route('single.conversation', contact))
+    form.selectedContact = contact;
+    axios.get(route('single.conversation', form.selectedContact))
         .then(response => {
             form.messages = response.data;
-            form.selectedContact = contact;
         }).catch(error => {
         console.log(error);
         //     Swal.fire({
         //         icon: 'error',
         //         text: error.message,
         //     })
+    })
+}
+
+let sendMessage = (text) => {
+    axios.post(route('message.send', form.selectedContact), {
+        text: encodeURIComponent(text)
+    }).then(response => {
+        form.messages = response.data;
     })
 }
 </script>
