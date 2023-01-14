@@ -37,7 +37,7 @@ onMounted(() => {
 let startConversation = (contact) => {
     form.selectedContact = contact;
     form.messages = [];
-    axios.get(route('single.conversation', form.selectedContact))
+    axios.get(route('show.chat', form.selectedContact))
         .then(response => {
             form.messages = response.data;
         }).catch(error => {
@@ -50,7 +50,7 @@ let startConversation = (contact) => {
 }
 
 let sendMessage = (text) => {
-    axios.post(route('message.send', form.selectedContact), {
+    axios.post(route('send.chat.message', form.selectedContact), {
         text: encodeURIComponent(text)
     }).then(response => {
         form.messages.push(response.data)

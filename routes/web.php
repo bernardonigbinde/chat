@@ -1,8 +1,6 @@
 <?php
 
 use App\Http\Controllers\ChatController;
-use App\Http\Controllers\ConversationController;
-use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,8 +32,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [ChatController::class, 'index'])->name('dashboard');
 
-    Route::get('conversation/{user:uuid}/messages', [ConversationController::class, 'index'])->name('single.conversation');
-    Route::post('conversation/{user:uuid}/messages', [MessageController::class, 'store'])->name('message.send');
+    Route::get('conversation/{user:uuid}/messages', [ChatController::class, 'show'])->name('show.chat');
+    Route::post('conversation/{user:uuid}/messages', [ChatController::class, 'store'])->name('send.chat.message');
 });
 
 require __DIR__.'/auth.php';

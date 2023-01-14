@@ -17,6 +17,7 @@ namespace App\Models{
  * @property string $uuid
  * @property string $from
  * @property string $to
+ * @property string|null $read_at
  * @property string $text
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -26,6 +27,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Message query()
  * @method static \Illuminate\Database\Eloquent\Builder|Message whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Message whereFrom($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Message whereReadAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Message whereText($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Message whereTo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Message whereUpdatedAt($value)
