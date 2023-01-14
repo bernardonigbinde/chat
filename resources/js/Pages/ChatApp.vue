@@ -28,6 +28,7 @@ let form = useForm({
 
 let startConversation = (contact) => {
     form.selectedContact = contact;
+    form.messages = [];
     axios.get(route('single.conversation', form.selectedContact))
         .then(response => {
             form.messages = response.data;
