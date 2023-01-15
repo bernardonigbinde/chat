@@ -5,7 +5,7 @@
                 <img class="rounded-full w-12 h-12 rounded-full shadow-lg" v-if="props.contact" :src="props.contact.profile_image" :alt="props.contact.name"/>
                 <h1 class="font-semibold ml-2 text-xl" v-text="props.contact ? props.contact.name : 'Select a Contact'"/>
             </div>
-            <div class="text-right">
+            <div class="text-right" v-if="props.messages.length > 0">
                 <span v-text="props.messages.length"/> Message(s)
             </div>
         </div>

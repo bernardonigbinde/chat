@@ -13,9 +13,23 @@ use Illuminate\Database\Eloquent\Builder;
 class ChatController extends Controller {
     public function index() {
         MessageResource::withoutWrapping();
+        $unreadUserUuids = Message::select(\DB::raw('`from` as sender_id, count(`from`) as messages_count'))
+            ->where('to', Auth::id())
+            ->whereNull('read_at')
+            ->groupBy('from')
+            ->get();
+
+        $contacts = User::whereNot('uuid', Auth::id())
+            ->get()
+            ->map(function (User $user) use ($unreadUserUuids) {
+                $sentUnreadMessage = $unreadUserUuids->where('sender_id', $user->uuid)->first();
+                $user->unreadMessagesCount = $sentUnreadMessage ? $sentUnreadMessage->messages_count : 0;
+                return $user;
+            });
+
         return inertia('Dashboard', [
             'messages' => MessageResource::collection([]),
-            'contacts' => User::whereNot('uuid', Auth::id())->get(),
+            'contacts' => $contacts,
         ]);
     }
 
