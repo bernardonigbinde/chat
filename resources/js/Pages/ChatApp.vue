@@ -12,7 +12,7 @@ import Conversation from "@/Pages/Conversation.vue";
 import ContactsList from "@/Pages/ContactsList.vue";
 import {useForm} from "@inertiajs/inertia-vue3";
 import axios from "axios";
-import {onMounted} from "vue";
+import {computed, onMounted} from "vue";
 
 let props = defineProps({
     messages: Array,
@@ -32,6 +32,8 @@ onMounted(() => {
         .listen('MessageSent', (event) => {
             handleIncomingMessage(event.message);
         })
+
+    form.contacts = _.sortBy(props.contacts, (contact) => contact.unreadMessagesCount).reverse();
 })
 
 let startConversation = (contact) => {
@@ -55,6 +57,10 @@ let sendMessage = (text) => {
     }).then(response => {
         form.messages.push(response.data)
         handleIncomingMessage(response.data)
+
+        //when I send a message, move this contact to the top of the list
+        // commented out, because the selected contact highlighting is controlled from the ContactList component
+        // form.contacts.sort((x, y) => form.selectedContact === x ? -1 : y === form.selectedContact ? 1 : 0)
     })
 }
 
@@ -63,4 +69,8 @@ let handleIncomingMessage = (message) => {
         form.messages.push(message);
     }
 }
+
+let sortedContacts = computed(() => {
+
+})
 </script>
